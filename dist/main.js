@@ -1,1 +1,1 @@
-console.log("Weather app");
+(()=>{"use strict";navigator.geolocation.getCurrentPosition((t=>{document.getElementById("latitude").textContent=t.coords.longitude,document.getElementById("longitude").textContent=t.coords.latitude}),(()=>{}))})();

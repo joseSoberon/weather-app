@@ -1,1 +1,3 @@
-console.log("Weather app")
+import getCurrentPosition from "./getCurrentPosition";
+
+getCurrentPosition();
