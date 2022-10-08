@@ -1,3 +1,5 @@
+import { displayCity } from './displayInfo';
+
 export default function getCurrentPosition() {
     const id = navigator.geolocation.getCurrentPosition(succesCallback, errorCallback)
 }
@@ -14,10 +16,12 @@ const succesCallback  = (position) => {
             return response.json();
         })
         .then(function(response) {
-            let city = document.getElementById("city");
-            city.textContent = response.name;
 
-            console.log(city);
+            console.log(response);
+
+            // Display city info in the screen (can put in a function)
+            // 1. Display city name
+            displayCity(response.name);
         })
 
 };
