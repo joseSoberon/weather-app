@@ -1,4 +1,4 @@
-import { displayCity } from './displayInfo';
+import { displayCity, displayConverter, displayWeather } from './displayInfo';
 
 export default function getCurrentPosition() {
     const id = navigator.geolocation.getCurrentPosition(succesCallback, errorCallback)
@@ -22,6 +22,12 @@ const succesCallback  = (position) => {
             // Display city info in the screen (can put in a function)
             // 1. Display city name
             displayCity(response.name);
+
+            // 2. Display city weather
+            displayWeather(response.weather[0], response.main);
+
+            // 3. Conversion button
+            displayConverter(response.main.temp);
         })
 
 };
