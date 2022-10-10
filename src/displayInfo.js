@@ -88,4 +88,61 @@ function displayConverter() {
 
 }
 
-export { displayCity, displayWeather, displayConverter }
+function displaySearchCity() {
+    let container = document.querySelector('main');
+
+    let searchbar = document.createElement('div');
+    searchbar.classList.add('searchbar')
+
+    let input = document.createElement('input')
+    input.setAttribute('type', 'text');
+    input.setAttribute('placeholder', 'Search City');
+
+    let button = document.createElement('button');
+    button.setAttribute('id', 'search-button');
+    button.textContent = 'Search';
+
+    button.addEventListener('click', () => {
+        if (input.value != '') {
+            deleteChilds(container);
+            displayNewCity(input.value);
+        }
+    })
+
+    searchbar.appendChild(input);
+    searchbar.appendChild(button);
+
+    container.appendChild(searchbar);
+}
+
+async function displayNewCity(city) {
+    let apiKey = '8a1dfe2baf222a773618cc95daa29f42';
+    let url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
+
+    try {
+        let response = await fetch(url, {mode: 'cors'});
+        let data = await response.json();
+        let lat = data[0].lat;
+        let lon = data[0].lon;
+
+        let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
+        let weatherResponse = await fetch(weatherUrl, {mode: 'cors'});
+        let weatherData = await weatherResponse.json();
+
+        displayCity(data[0].name);
+        displayWeather(weatherData.weather[0], weatherData.main);
+        displaySearchCity();
+
+    } catch(err) {
+        console.log('City not found');
+        displaySearchCity();
+    }
+}
+
+function deleteChilds(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+export { displayCity, displayWeather, displayConverter, displaySearchCity }

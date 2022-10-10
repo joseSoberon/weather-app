@@ -45,3 +45,13 @@ body {
 .temperature-div {
     margin-top: 0.5em;
 }
+
+.searchbar {
+    padding: 1.5em 1em;
+    max-width: 550px;
+    min-width: 400px;
+    background-color: rgba(100, 100, 100, 0.8);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
